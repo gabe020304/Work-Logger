@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Label label;
     private TextField textField;
-    private FileWriter fileWriter;
 
     public static void main(String[] args) {
         launch(args);
@@ -35,22 +34,13 @@ public class Main extends Application {
         hBox.getChildren().addAll(textField, label, button);
 
         File file = new File("worklog.txt");
-        if(!file.exists()){
+        if (!file.exists()) {
             try {
                 file.createNewFile();
-            } catch (IOException | IOException e) {
+            } catch (IOException e) {
                 label.setText("Error creating file");
                 label.setTextFill(Color.RED);
                 return;
-            } finally {
-                try {
-                    if (file != null) {
-                        file.close();
-                    }
-                } catch (IOException e) {
-                    label.setText("Error closing file");
-                    label.setTextFill(Color.RED);
-                }
             }
         }
 
@@ -59,7 +49,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
 
     private void handleButtonClick() {
@@ -80,7 +69,7 @@ public class Main extends Application {
         StringBuilder sb = new StringBuilder();
         sb.append(dateTimeString).append(" - ").append(input).append("\n");
 
-        try(FileWriter fileWriter = new FileWriter("worklog.txt", true)){
+        try (FileWriter fileWriter = new FileWriter("worklog.txt", true)) {
             fileWriter.write(sb.toString());
         } catch (IOException e) {
             label.setText("Error saving data");
