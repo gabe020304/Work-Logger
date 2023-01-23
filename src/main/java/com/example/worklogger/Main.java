@@ -1,7 +1,12 @@
 package com.example.worklogger;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,72 +14,85 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 
 public class Main extends Application {
+    private Label label;
+    private TextField textField;
+    private FileWriter fileWriter;
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    private Label label;
-
     @Override
     public void start(Stage primaryStage) {
-        // Create UI elements
-        TextField textField = new TextField();
+        textField = new TextField();
         label = new Label("Work done:");
         Button button = new Button("Save");
 
-        // Create a HBox layout
         HBox hBox = new HBox();
         hBox.getChildren().addAll(textField, label, button);
 
-        // Add event handler to the button
-        button.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent event) {
-                // Get the data entered by the user
-                String data = textField.getText();
-
-                // Validate the data
-                if (data.isEmpty()) {
-                    // Show an error message if the data is empty
-                    label.setText("Please enter a value");
+        File file = new File("worklog.txt");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                label.setText("Error creating file");
+                label.setTextFill(Color.RED);
+                return;
+            } finally {
+                try {
+                    if (file != null) {
+                        file.close();
+                    }
+                } catch (IOException e) {
+                    label.setText("Error closing file");
                     label.setTextFill(Color.RED);
-                } else {
-                    // Check if the input can be parsed to an integer
-                    try {
-                        int input = Integer.parseInt(data);
-                    } catch (NumberFormatException e) {
-                        label.setText("Please enter a valid number");
-                        label.setTextFill(Color.RED);
-                        return;
-                    }
-
-                    // Save the data if it is valid
-                    try {
-                        LocalDateTime dateTime = LocalDateTime.now(ZoneId.of("America/Denver"));
-                        String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-                        FileWriter fileWriter = new FileWriter("worklog.txt", true);
-                        fileWriter.write(dateTimeString + " - " + input + "\n");
-                        fileWriter.close();
-                        label.setText("Data saved");
-                    } catch (IOException e) {
-                        label.setText("Error saving data");
-                        label.setTextFill(Color.RED);
-                    }
                 }
             }
-        });
+        }
 
-        // Create a scene and set it to the primary stage
+        button.setOnAction(e -> handleButtonClick());
         Scene scene = new Scene(hBox, 300, 50);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+
+
+    private void handleButtonClick() {
+        String data = textField.getText();
+        if (data.isEmpty()) {
+            label.setText("Please enter a value");
+            label.setTextFill(Color.RED);
+            return;
+        }
+        if (!isNumeric(data)) {
+            label.setText("Please enter a valid number");
+            label.setTextFill(Color.RED);
+            return;
+        }
+        int input = Integer.parseInt(data);
+        LocalDateTime dateTime = LocalDateTime.now(ZoneId.of("America/Denver"));
+        String dateTimeString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        StringBuilder sb = new StringBuilder();
+        sb.append(dateTimeString).append(" - ").append(input).append("\n");
+
+        try(FileWriter fileWriter = new FileWriter("worklog.txt", true)){
+            fileWriter.write(sb.toString());
+        } catch (IOException e) {
+            label.setText("Error saving data");
+            label.setTextFill(Color.RED);
+        }
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
