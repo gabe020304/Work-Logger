@@ -2,6 +2,7 @@ package com.example.worklogger;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +38,7 @@ public class Main extends Application {
         if(!file.exists()){
             try {
                 file.createNewFile();
-            } catch (IOException e) {
+            } catch (IOException | IOException e) {
                 label.setText("Error creating file");
                 label.setTextFill(Color.RED);
                 return;
