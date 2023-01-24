@@ -46,6 +46,7 @@ public class Main extends Application {
 
         button.setOnAction(e -> handleButtonClick());
         Scene scene = new Scene(hBox, 300, 50);
+        scene.getStylesheets().add("/Users/gabrielcurran/Desktop/folders/repos/github_repos/Work-Logger/src/main/java/com/example/worklogger/style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
