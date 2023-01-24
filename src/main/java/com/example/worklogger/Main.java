@@ -27,7 +27,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         textField = new TextField();
-        label = new Label("Work done:");
+        label = new Label("Hours Worked:");
         Button button = new Button("Save");
 
         HBox hBox = new HBox();
