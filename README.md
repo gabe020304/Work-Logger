@@ -1,20 +1,48 @@
-# Work-Logger
-A little UI capable of tracking, and storing your work data. Like clocking in an out. 
+# Hourly Work Logging System
+A JavaFX application that allows you to log the number of hours worked in a day.
 
+## Requirements:
 
-1. Download & Install SDK man. 
+1. Java 11 or later
+2. JavaFX library
 
-2. Download & Install Java 16 using SDK man. 
+## Setup
 
-3. Clone this repository
+1. Clone the repository to your local machine:
+2. git clone https://github.com/gabe020304/Work-Logger.git
+3. Import the project into your preferred Java IDE.
 
-* (You may need to set JDK as Java 16 version you installed in your IDE.)
+Run the start method in the Main class to launch the application.
 
-4. Build Java program. Usually there is a button in your IDE where you can do this. 
+## Features:
 
-5. Run the program 
+Log the number of hours worked in a day
+Store the log information in a text file (worklog.txt)
+Display error messages in case of file creation errors
+User-friendly interface with a header label and button to save the log information
 
-A GUI should pop up and you can input your hours worked, this will work like a clocking in system. It will save to a file after clicking "save" and it will add a new data stamp with the time and date everytime you log the hours you worked. 
+## Future Features:
 
+- Clock in/out buttons, with real-time clock & date display
+- Ability to edit the log file. Timesheet view.
+- Ability to export the log file to a CSV file.
+- Ability to import a CSV file to the log file.
+- Prettified log file.
+- User Authentication
+- Ability to create multiple log files for different users.
 
-COMPLETE TODO BEFORE RELEASING TO PUBLIC AND REMOVE THIS MESSAGE. 
+## Configuration:
+
+You can customize the appearance of the application by editing the style.css file in the resources directory.
+
+## Contributing:
+
+1. Fork the repository
+2. Create a new branch for your changes (git checkout -b my-changes)
+3. Commit your changes (git commit -am 'Add some changes')
+4. Push the branch (git push origin my-changes)
+5. Create a pull request
+
+## License:
+
+This project is licensed under the MIT License.
