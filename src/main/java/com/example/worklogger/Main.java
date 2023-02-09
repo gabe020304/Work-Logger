@@ -9,10 +9,14 @@ import java.time.format.DateTimeFormatter;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
+import javafx.scene.text.Font;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -26,12 +30,26 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Label header = new Label("Hourly Work Logging System");
+        header.setFont(Font.font(40));
+        header.setPadding(new Insets(20, 0, 20, 0));
+        header.setTextFill(Color.BLACK);
+
         textField = new TextField();
         label = new Label("Hours Worked:");
         Button button = new Button("Save");
 
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(textField, label, button);
+        hBox.getChildren().addAll(label, textField, button);
+        hBox.setSpacing(30);
+        hBox.setPadding(new Insets(50, 0, 50, 0));
+        hBox.setAlignment(Pos.CENTER);
+
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(header, hBox);
+        vBox.setSpacing(30);
+        vBox.setPadding(new Insets(50, 0, 50, 0));
+        vBox.setAlignment(Pos.CENTER);
 
         File file = new File("worklog.txt");
         if (!file.exists()) {
@@ -45,11 +63,13 @@ public class Main extends Application {
         }
 
         button.setOnAction(e -> handleButtonClick());
-        Scene scene = new Scene(hBox, 300, 50);
+        Scene scene = new Scene(vBox, 1000, 500);
+        scene.getStylesheets().add(
+                getClass().getResource("style.css").toExternalForm()
+        );
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
 
     private void handleButtonClick() {
         String data = textField.getText();

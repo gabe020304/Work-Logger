@@ -1,0 +1,39 @@
+.root {
+    -fx-padding: 10px;
+    -fx-background-color: #f2f2f2;
+    -fx-alignment: center;
+}
+
+.text-field {
+    -fx-min-width: 200px;
+    -fx-background-color: white;
+    -fx-padding: 10px;
+    -fx-font-size: 16px;
+    -fx-border-radius: 5px;
+    -fx-border-color: gray;
+    -fx-border-width: 2px;
+}
+
+.label {
+    -fx-min-width: 70px;
+    -fx-text-fill: gray;
+    -fx-font-size: 16px;
+}
+
+.button {
+    -fx-min-width: 70px;
+    -fx-background-color: #0080ff;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-border-radius: 5px;
+    -fx-border-color: gray;
+    -fx-border-width: 2px;
+}
+
+.error {
+    -fx-text-fill: red;
+}
+
+.hbox {
+    padding: 100px;
+}
