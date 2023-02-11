@@ -37,3 +37,11 @@
 .hbox {
     padding: 100px;
 }
+
+.header {
+    -fx-font-size: 40pt;
+    -fx-font-family: "Rockwell";
+    -fx-text-fill: black;
+    -fx-padding: 20 0 20 0;
+}
+
