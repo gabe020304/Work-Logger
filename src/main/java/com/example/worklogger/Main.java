@@ -31,6 +31,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Label header = new Label("Hourly Work Logging System");
+        header.getStyleClass().add("header");
         header.setFont(Font.font(40));
         header.setPadding(new Insets(20, 0, 20, 0));
         header.setTextFill(Color.BLACK);
