@@ -3,7 +3,7 @@ A JavaFX application that allows you to log the number of hours worked in a day.
 
 ## Requirements:
 
-1. Java 11 or later
+1. Java 11
 2. JavaFX library
 
 ## Setup
